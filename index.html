@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+		/*
+			dashWoorkZ Sovereign Society represented by 
+			Lord :Dash: La Londe thank the source for this code 
+			Traversy Media and its owner Brad Traversy. You can view the original video 
+			
+			here: https://www.youtube.com/watch?v=qNiUlml9MDk,
+			
+			you can also download the original code from 
+			
+			here: https://github.com/bradtraversy/qr-code-generator
+			
+			I removed all Tailwind CSS and replaced it with what you see below.
+			I also added some javascript to add some CSS to the generated elements.
+		*/
+		
+		/*  ///=== CSS# Resets ===\\\ */
+		@media (prefers-reduced-motion: no-preference) {
+			:has(:target) {
+			   scroll-behavior: smooth;
+			   scroll-padding-top: 3rem;
+			}
+	   }
+	   
+		*,
+		*::before,
+		&::after {
+			box-sizing: border-box;
+			padding-inline: 0;
+			padding-block: 0;
+			margin-inline: 0;
+			margin-block: 0;
+		}
+		
+	   html {
+		   scroll-behavior: smooth;
+	   }
+		
+		/* ///=== Responsive Code ===\\\ */
+		@media screen and (max-width: 45rem) {
+			#main__container {
+				gap: 1.5rem;
+				max-width: calc(100% - 1rem);
+				margin-inline: 0.5rem;
+			}
+			
+			#main__container .qr__code__generator {
+				display: flex;
+				flex-direction: column;
+				max-width: calc(100% - 2rem);
+				gap: 2rem;
+				border: 0.3rem inset dodgerblue;
+				outline: 0.3rem ridge gold;
+			}
+			
+			#main__container .qr__code__generator .qr__code {
+				display: inline grid;
+				place-content: center;
+				gap; 2rem;
+				padding-block: 1rem;
+				padding-inline-start: 1rem;
+				max-width: 25rem;
+			}
+			
+			#generate-form .btnDiv {
+				justify-content: center;
+				align-items: flex-end;
+				padding-block: 1rem;
+				padding-inline: 0;
+				gap: 2rem; 
+				width: 100%;
+				flex-direction: column ; 
+			}
+		}
+		
+		/* \\\======================/// */
+		
+		
+		
+		body {
+			display: inline grid;
+			align-content: center;
+			min-width: 100svw;
+			min-height: 100svh;
+			font-family: "Poppins", "sans-serif";
+		}
+      
+		img {
+		  scale: 0.8;
+		}
+		
+		a {
+			text-decoration: none;
+		}
+		
+		/* ///=== Full-Screen Code ===\\\ */
+		#main__container {
+			display: inline grid;
+			position: relative;
+			place-content: center;
+			width: 100%;
+		}
+			
+		#main__container .qr__code__generator {
+			--bg-image: url("img/qr-code.svg");
+			--bg-image-opacity: 0.25;
+
+			align-self: center;
+			display: inline flex;
+			position: relative;
+			gap: 1rem;
+			border: 0.3rem inset gold;
+			outline: 0.3rem ridge dodgerblue;
+			outline-offset: 0.1rem;
+			border-radius: 1rem;
+			margin-inline: auto;
+			padding-block-start: 0.5rem;
+			max-width: 80rem;
+			justify-content: center;
+			align-items: center;
+		}
+		
+		#main__container .qr__code__generator::after {
+			content: "";
+			position: absolute;
+			z-index: -1;
+			inset: 0;
+			opacity: var(--bg-image-opacity);
+
+			background-image: var(--bg-image);
+			background-size: cover;
+			background-position: center;
+		}
+		
+
+				
+		#main__container .qr__code__generator .qr__code {
+			display: inline grid;
+			place-content: center;
+			gap; 2rem;
+			padding-block: 1rem;
+			padding-inline-start: 1rem;
+			max-width: 25rem;
+		}
+		
+		#main__container .qr__code__generator .qr__code .title {
+			color: gold;
+			text-shadow: 0 0.2rem 0.2rem blue;
+			background-color: red;
+			text-align: center;
+			padding-block: 0.5rem;
+			font-size: 2rem;
+			font-weight: 700;
+			letter-spacing: 0.1rem;
+		}
+
+		#main__container .qr__code__generator div p {
+			color: dodgerblue;
+			text-shadow: 0 0.2rem 0.2rem gold;
+			font-weight: 700;
+			letter-spacing: 0.1rem;
+			text-align: center;
+			padding-block: 0.5rem;
+			padding-inline: 0.5rem;
+		}
+
+		#main__container .qr__code__generator div .p1 {
+		  border-bottom: 0.4rem inset gold;
+		}
+
+
+		/* \\\======================/// */
+		  
+		#main__container .qr__code__generator .qr__code #generate-form {
+		  display: inline grid;
+		  gap: 1rem;
+		}
+		  
+		#main__container .qr__code__generator .qr__code #generate-form .qr__input {
+			border: 0.2rem inset gold;
+			max-width: 100%;
+			padding-inline-start: 2rem;
+			padding-block: 0.5rem;
+		}
+
+		#main__container .qr__code__generator .qr__code #generate-form .btnDiv {
+			display: inline flex;
+			align-items: center;
+			justify-content: space-between;
+			padding-block: 1rem;
+			padding-inline: 0.5rem;
+			gap: 2rem; 
+			width: 100%; 
+		}
+		
+		#main__container .qr__code__generator .qr__code #generate-form .btnDiv .reset,
+		#main__container .qr__code__generator .qr__code #generate-form .btnDiv .submit {
+			font-size: 1.25rem;
+			color: dodgerblue;
+			text-shadow: 0 0.1rem 0.1rem purple;
+			text-align: center;
+			padding-block: 0.5rem;
+			background-color: gold;
+			border: 0.2rem inset blue;
+			outline: 0.2rem ridge purple;
+			outline-offset: 0.1rem;
+			border-radius: 0.5rem;
+			min-width: 10rem;
+		}
+		
+		/* ///=== Generated Code ===\\\ */
+		#main__container .qrInfo {
+			display: inline grid;
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+		.generated {
+			display: inline grid;
+			grid-template-columns: 1fr;
+			padding-inline: 1rem;
+			padding-block: 1rem;
+			margin-inline: auto;
+			width: 100%;
+		}
+		
+		.saveImg {
+			font-size: 1.25rem;
+			color: gold;
+			text-shadow: 0 0.2rem 0.2rem dodgerblue;
+			text-align: center;
+			padding-block: 0.5rem;
+			display: none;
+			background-color: red;
+		}
+
+		#save-link{
+			font-size: 1.25rem;
+			color: gold;
+			text-shadow: 0 0.2rem 0.2rem dodgerblue;
+			text-align: center;
+			padding-block: 0.5rem;
+			background-color: red;
+			min-width: 16.5rem;
+			margin-inline: auto;
+		}
+		/* \\\======================///
+
+		/* ///=== Spinner Code ===\\\ */
+		#spinner {
+			display: inline flex;
+			flex-direction: column;
+			gap: 1rem;
+			align-items: baseline;
+			
+		}
+	
+		.spinner {
+			fill: blue;
+			width: 10rem;
+			height: 10rem;
+			border-radius: 50%;
+			animation: spin 500ms infinite;
+		}
+
+		@keyframes spin {
+			0% {
+			transform: rotate(0deg);
+			}
+			100% {
+			transform: rotate(360deg);
+			}
+		}
+		
+		#spinner {
+			display: none;
+		  }
+		/* \\\======================///
+		
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Generate a QR code image to point to a website URL"
+    />
+    <meta
+      name="keywords"
+      content="qr code, qr codes, qrcodes, create qr code, qr code generator, create qrcodes, make a qr code, online qr code"
+    />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+   
+	<!-- QRCode Generator CDN Link -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+      integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- QRCode Generator Local Javascript Link -->
+    <script src="js/script.js" defer></script>
+    <title>QR Code Generator</title>
+  </head>
+  <body>
+
+    <section id="main__container">
+	<img src="img/spinner.svg" alt="" />
+      <div class="qr__code__generator">
+        
+        <!-- ///=== QRCode Generator ===\\\ -->
+        <div class="qr__code">
+          <h1 class="title">QR Code Generator</h1>
+          <p class='p1'>
+            QR Codes allow smartphone users to access your website simply and
+            quickly.
+          </p>
+          <p>
+            Enter your URL below to generate a QR Code and download the image.
+          </p>
+
+          <form id="generate-form" class="mt-5">
+            <input
+              id="url"
+              type="url"
+              placeholder="Enter a URL"
+              class="qr__input"
+              required
+            />
+
+            <select
+              class="qr__input"
+              name="size"
+              id="size"
+            >
+              <option value="100">100x100</option>
+              <option value="200">200x200</option>
+              <option value="300" selected>300x300</option>
+              <option value="400">400x400</option>
+              <option value="500">500x500</option>
+              <option value="600">600x600</option>
+              <option value="700">700x700</option>
+            </select>
+            <div class="btnDiv">
+				<button
+				  class="submit"
+				  type="submit"
+				>
+				  Generate QR Code
+				</button>
+				<button
+				  class="reset"
+				  type="reset"
+				>
+				  Reset URL
+				</button>
+            </div>
+          </form>
+        </div>
+        <!-- ///======================\\\ -->
+        
+        <!-- ///=== Generated Code ===\\\ -->
+        <div class="grInfo">
+			<div id="qrcode"></div>
+			<div
+			id="generated"
+			class="generated"
+			>
+			  <!-- Spinner -->
+			  <div id="spinner" role="status">
+			  <svg
+				class="spinner"
+				viewBox="0 0 100 101"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+			  >
+				<path
+				  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+				  fill="currentColor"
+				/>
+				<path
+				  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+				  fill="currentFill"
+				/>
+			  </svg>
+			  <span class="sr-only">Loading...</span>
+			</div> 
+        </div>
+        <!-- ///======================\\\ -->
+        
+	  </div>
+      </div>
+    </section>
+    
+  </body>
+</html>
