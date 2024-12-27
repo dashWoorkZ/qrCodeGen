@@ -2,7 +2,7 @@
 
 Simple app to generate and download a QR code that can be used to share a link.
 
-[Live Demo](http://dashwoorkz.ca)
+[Live Demo](http://dashwoorkz.ca/#qrCodeGen)
 
 Added December 23, 2024: Link not working
 [Live Demo](https://qrcodes.tech)
